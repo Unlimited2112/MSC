@@ -206,12 +206,7 @@ public class JFrame extends javax.swing.JFrame
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        jTextField1.getText();
-        for(int i = 0; i > jComboBox1.getComponentCount(); i++)
-        {
-            if(defaultComboBoxModel.g)
-            defaultComboBoxModel.addElement(ABORT);
-        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
     private void conncetToDb(String sql)
     {
