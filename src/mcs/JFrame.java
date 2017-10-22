@@ -5,6 +5,8 @@
  */
 package mcs;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -21,6 +24,7 @@ import javafx.collections.ObservableList;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import static org.apache.commons.lang.StringUtils.startsWithIgnoreCase;
@@ -32,6 +36,7 @@ import static org.apache.commons.lang.StringUtils.startsWithIgnoreCase;
 public class JFrame extends javax.swing.JFrame
 {
 
+    private static List<String> listForComboBox = new ArrayList<String>();
     DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel defaultTableModel = new DefaultTableModel();
     String driver = "jdbc:ucanaccess://";
@@ -42,9 +47,16 @@ public class JFrame extends javax.swing.JFrame
     public JFrame()
     {
         initComponents();
+        new ItemListener()
+        {
+
+            public void itemStateChanged(ItemEvent arg0)
+            {
+            }
+        }
+    );
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,6 +93,10 @@ public class JFrame extends javax.swing.JFrame
             public void keyPressed(java.awt.event.KeyEvent evt)
             {
                 jComboBox1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                jComboBox1KeyReleased(evt);
             }
         });
 
@@ -147,10 +163,42 @@ public class JFrame extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-
+    jComboBox1.addItemListener (
+            public void comboBoxFilter
     
+        (String enteredText)
+    {
+        System.out.println(jComboBox1.getItemCount());
+
+        if (!jComboBox1.isPopupVisible())
+        {
+            jComboBox1.showPopup();
+        }
+
+        List<String> filterArray = new ArrayList<String>();
+        for (int i = 0; i < listForComboBox.size(); i++)
+        {
+            if (listForComboBox.get(i).toLowerCase().contains(enteredText.toLowerCase()))
+            {
+                filterArray.add(listForComboBox.get(i));
+            }
+        }
+        if (filterArray.size() > 0)
+        {
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
+            model.removeAllElements();
+            model.addElement("");
+            for (String s : filterArray)
+            {
+                model.addElement(s);
+            }
+
+            JTextField textfield = (JTextField) jComboBox1.getEditor().getEditorComponent();
+            textfield.setText(enteredText);
+        }
+    }
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 
@@ -181,8 +229,14 @@ public class JFrame extends javax.swing.JFrame
 
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jComboBox1KeyPressed
     {//GEN-HEADEREND:event_jComboBox1KeyPressed
-        defaultComboBoxModel.
+
     }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jComboBox1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jComboBox1KeyReleased
+    {//GEN-HEADEREND:event_jComboBox1KeyReleased
+
+        comboBoxFilter(jComboBox1.getSelectedItem().toString());
+    }//GEN-LAST:event_jComboBox1KeyReleased
     private void conncetToDb(String sql)
     {
         Vector columnNames = new Vector();
@@ -235,6 +289,7 @@ public class JFrame extends javax.swing.JFrame
                     if (o != null)
                     {
                         return o.getClass();
+
                     }
                 }
 
