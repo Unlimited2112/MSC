@@ -252,6 +252,8 @@ public class JFrame extends javax.swing.JFrame
             resultSet.close();
             statement.close();
             connection.close();
+            Object[] e = {"123","32","5","6"};
+            System.out.println(data.addAll(e));
         }
         catch (SQLException ex)
         {
