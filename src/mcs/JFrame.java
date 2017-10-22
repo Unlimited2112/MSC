@@ -47,14 +47,6 @@ public class JFrame extends javax.swing.JFrame
     public JFrame()
     {
         initComponents();
-        new ItemListener()
-        {
-
-            public void itemStateChanged(ItemEvent arg0)
-            {
-            }
-        }
-    );
     }
 
     /**
@@ -73,6 +65,8 @@ public class JFrame extends javax.swing.JFrame
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,15 +82,11 @@ public class JFrame extends javax.swing.JFrame
 
         jComboBox1.setEditable(true);
         jComboBox1.setModel(defaultComboBoxModel);
-        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter()
+        jComboBox1.addItemListener(new java.awt.event.ItemListener()
         {
-            public void keyPressed(java.awt.event.KeyEvent evt)
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
             {
-                jComboBox1KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
-                jComboBox1KeyReleased(evt);
+                jComboBox1ItemStateChanged(evt);
             }
         });
 
@@ -127,6 +117,15 @@ public class JFrame extends javax.swing.JFrame
             }
         });
 
+        jButton4.setText("Фильтр");
+        jButton4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,8 +140,12 @@ public class JFrame extends javax.swing.JFrame
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton3))
-                .addContainerGap(233, Short.MAX_VALUE))
+                    .addComponent(jButton3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addGap(32, 32, 32)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,47 +160,16 @@ public class JFrame extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    jComboBox1.addItemListener (
-            public void comboBoxFilter
-    
-        (String enteredText)
-    {
-        System.out.println(jComboBox1.getItemCount());
-
-        if (!jComboBox1.isPopupVisible())
-        {
-            jComboBox1.showPopup();
-        }
-
-        List<String> filterArray = new ArrayList<String>();
-        for (int i = 0; i < listForComboBox.size(); i++)
-        {
-            if (listForComboBox.get(i).toLowerCase().contains(enteredText.toLowerCase()))
-            {
-                filterArray.add(listForComboBox.get(i));
-            }
-        }
-        if (filterArray.size() > 0)
-        {
-            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
-            model.removeAllElements();
-            model.addElement("");
-            for (String s : filterArray)
-            {
-                model.addElement(s);
-            }
-
-            JTextField textfield = (JTextField) jComboBox1.getEditor().getEditorComponent();
-            textfield.setText(enteredText);
-        }
-    }
-
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
@@ -227,16 +199,20 @@ public class JFrame extends javax.swing.JFrame
                 + "ORDER BY Элементы.Обозначение;");
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jComboBox1KeyPressed
-    {//GEN-HEADEREND:event_jComboBox1KeyPressed
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_jComboBox1ItemStateChanged
+    {//GEN-HEADEREND:event_jComboBox1ItemStateChanged
 
-    }//GEN-LAST:event_jComboBox1KeyPressed
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
-    private void jComboBox1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jComboBox1KeyReleased
-    {//GEN-HEADEREND:event_jComboBox1KeyReleased
-
-        comboBoxFilter(jComboBox1.getSelectedItem().toString());
-    }//GEN-LAST:event_jComboBox1KeyReleased
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        jTextField1.getText();
+        for(int i = 0; i > jComboBox1.getComponentCount(); i++)
+        {
+            if(defaultComboBoxModel.g)
+            defaultComboBoxModel.addElement(ABORT);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     private void conncetToDb(String sql)
     {
         Vector columnNames = new Vector();
@@ -411,8 +387,10 @@ public class JFrame extends javax.swing.JFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
