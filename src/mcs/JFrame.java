@@ -7,6 +7,7 @@ package mcs;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -208,6 +209,13 @@ public class JFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton4ActionPerformed
 
     }//GEN-LAST:event_jButton4ActionPerformed
+    public Object rVSet(String [] mst){
+        Vector row = new Vector();
+        for(int i= 0;i<18;++i){
+            row.add(mst[i]);
+        }
+        return row;
+    }
     private void conncetToDb(String sql)
     {
         Vector columnNames = new Vector();
@@ -237,6 +245,7 @@ public class JFrame extends javax.swing.JFrame
 
                     row.addElement(resultSet.getObject(i));
                 }
+                
                 data.addElement(row);
                 System.out.println(row);
             }
@@ -248,6 +257,7 @@ public class JFrame extends javax.swing.JFrame
         {
             ex.printStackTrace();
         }
+
         defaultTableModel = new DefaultTableModel(data, columnNames)
         {
             @Override
